@@ -16,7 +16,7 @@ class QueueWrapper(object):
 
     def __init__(self, name: str, q: Queue = None, prevent_writes: Event = None):
         self.name: str = name
-        self.q: Queue = q or Queue()
+        self.q: Queue = q or Queue() 
         self._prevent_writes: Event = prevent_writes or Event()
 
     def get(self) -> Any:
@@ -24,18 +24,16 @@ class QueueWrapper(object):
         If the queue is drained, it returns the sentinal string STOP.
         If the queue is closed while this call is blocking, it'll return STOP
         '''
-        if self.is_drained:
-            return 'STOP'
+        
+
         try:
-            return self.q.get()
-        except Exception as ex:
+            
+        except Exception:
             log.info(f'q.get() interupted')
             return 'STOP'
 
     def put(self, obj: object):
-        if self.is_writable:
-            log.debug('putting message on the queue')
-            self.q.put(obj)
+        
 
     def put_many(self, objs: List[object]):
         for obj in objs:
@@ -51,17 +49,17 @@ class QueueWrapper(object):
     @property
     def is_writable(self):
         '''Read-only property indicating if the queue is writable. '''
-        return not self._prevent_writes.is_set()
+        
 
     @property
     def is_drained(self):
         '''If the queue is not writable and is empty the queue is draining '''
-        return not self.is_writable and self.empty
+        
 
     @property
     def empty(self):
         '''Read-only property indicating if the queue is empty '''
-        return self.q.empty()
+        
 
 
 class QueueManager(BaseManager):
