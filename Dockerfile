@@ -1,4 +1,4 @@
-FROM cloudacademydevops/ide:python37
+FROM cloudacademydevops/ide:python-3.8.3
 USER root
 WORKDIR /root/lab/
 COPY src ./src
