@@ -1,4 +1,4 @@
-FROM cloudacademydevops/ide:python-3.8.3
+FROM 421805900968.dkr.ecr.us-east-2.amazonaws.com/cloudacademy/labs-workspace/python-3.8.3
 USER root
 WORKDIR /root/lab/
 COPY src ./src
